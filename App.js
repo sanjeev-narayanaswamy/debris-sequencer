@@ -4,7 +4,6 @@ import { Engine } from './engine';
 import Info from './Info';
 import Search from './Search/Search';
 import SelectedStations from './Selection/SelectedStations';
-import Fork from './fork';
 import * as qs from 'query-string';
 import Highlights from './highlights';
 
@@ -160,7 +159,6 @@ class App extends Component {
 
         return (
             <div>
-                <Fork />
                 <Highlights query={this.state.query} total={this.state.queryObjectCount} />
                 <Info stations={stations} />
                 <Search stations={this.state.stations} onResultClick={this.handleSearchResultClick} />
