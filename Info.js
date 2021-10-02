@@ -8,7 +8,7 @@ class Info extends Component {
 
         return (
             <div className='Info'>
-                <h1>Satellite tracker</h1>
+                <h1>Debris tracker</h1>
                 {stations && stations.length > 0 && (<p>Total objects: {stations.length}</p>)}
             </div>
         )
