@@ -359,11 +359,24 @@ export class Engine {
     _getNearestDebris = (clickedStation) => {
 
 	    //Get Orbital Elements of Clicked Debris Object
-	    const a_1 = clickedStation.satrec.a;
-	    const ecco_1 = clickedStation.satrec.ecco;
-	    const inclo_1 = clickedStation.satrec.inclo;
-	    const argpo_1 = clickedStation.satrec.argpo;
-	    const nodeo_1 = clickedStation.satrec.nodeo;
+	    var a_1 = clickedStation.satrec.a;
+	    var ecco_1 = clickedStation.satrec.ecco;
+	    var inclo_1 = clickedStation.satrec.inclo;
+	    var argpo_1 = clickedStation.satrec.argpo;
+	    var nodeo_1 = clickedStation.satrec.nodeo;
+
+            //Initialize Orbital Elements of Iterated Debris Object
+	    var a_2 = 0;
+	    var ecco_2 = 0;
+	    var inclo_2 = 0;
+	    var argpo_2 = 0;
+	    var nodeo_2 = 0;
+
+	    //Initialize minimum relative inclination value and nearest debris
+	    //for selected object
+	    var minRelInc = 5; //Greater than max possible value of pi
+            var relInc = 5; //Greater than max possible value of pi
+	    var nearestDebrisIndex = -1; 
 
 	for (var i = 0; i < this.stations.length; ++i) {
 	    
@@ -371,15 +384,28 @@ export class Engine {
 
             if (s.satrec.satnum !== clickedStation.satrec.satnum){
 	    //Get Orbital Elements of Iterated Debris Object
-	    const a_2 = s.satrec.a;
-	    const ecco_2 = s.satrec.ecco;
-	    const inclo_2 = s.satrec.inclo;
-	    const argpo_2 = s.satrec.argpo;
-	    const nodeo_2 = s.satrec.nodeo;
+	    a_2 = s.satrec.a;
+	    ecco_2 = s.satrec.ecco;
+	    inclo_2 = s.satrec.inclo;
+	    argpo_2 = s.satrec.argpo;
+	    nodeo_2 = s.satrec.nodeo;
+
+	    relInc = Math.acos(Math.cos(inclo_1)*Math.cos(inclo_2) + Math.sin(inclo_1)*Math.sin(inclo_2)*Math.cos(nodeo_1 - nodeo_2));
+
+
+		    if (relInc <= minRelInc){
+			//Update minRelInc and minDebris if needed
+			minRelInc = relInc; 
+
+			//Update nearestDebrisIndex
+			nearestDebrisIndex = i;
+		    }
+
              }
 
-	return s;
 	}
+
+	return this.stations[nearestDebrisIndex];
     }
 
     _findStationFromMesh = (threeObject) => {
