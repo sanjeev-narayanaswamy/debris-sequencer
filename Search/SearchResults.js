@@ -31,7 +31,7 @@ export const StationCard = ({station, onClick, onRemoveClick, className}) => {
     return (
         <div className={'Result ' + (className || '')} onClick={e => onClick && onClick(station)}>
             <p>
-                <span title={noradId ? 'NORAD ID: ' + noradId : null}>{station.name}</span>
+                <span title={noradId ? 'NORAD ID: ' + noradId : null}>{station.name} ({station.satrec.satnum})</span>
                 {onRemoveClick && <span className='RemoveButton' onClick={e => onRemoveClick(station)}>x</span>}
             </p>
         </div>
