@@ -8,6 +8,7 @@ import { earthRadius } from "satellite.js/lib/constants";
 
 const SatelliteSize = 50;
 const ixpdotp = 1440 / (2.0 * 3.141592654) ;
+var visibleStations = [];
 
 let TargetDate = new Date();
 
@@ -78,8 +79,10 @@ export class Engine {
             if (picked) {
                 station = this._findStationFromMesh(picked);
 	        // console.log(station.satrec.ecco);
-            	var nearestDebrisStation = this._getNearestDebris(station);
-                this._isolateClickedAndNearestDebris(station,nearestDebrisStation);
+            	var nearestDebrisStation = this._getNearestDebris(station,visibleStations);
+		visibleStations.push(station.satrec.satnum);
+		visibleStations.push(nearestDebrisStation.satrec.satnum);
+                this._isolateClickedAndNearestDebris(station,nearestDebrisStation,visibleStations);
             }
         }
 
@@ -361,7 +364,7 @@ export class Engine {
 
     }
 
-	_isolateClickedAndNearestDebris = (clickedStation,nearestDebris) => {
+	_isolateClickedAndNearestDebris = (clickedStation,nearestDebris,visibleStations) => {
             for (var i = 0; i < this.stations.length; ++i) {
 	    
             const s = this.stations[i];
@@ -372,6 +375,14 @@ export class Engine {
 		// s.mesh.material.color = {r:0, g:1,b:0,isColor:true}
 		    
 	}
+
+            if (visibleStations.includes(s.satrec.satnum)){
+
+		s.mesh.visible = true;
+		// s.mesh.material.color = {r:0, g:1,b:0,isColor:true}
+		    
+	}
+
 	    }
 		this.render();
 	}
@@ -425,7 +436,9 @@ export class Engine {
 	    relInc = Math.acos(Math.cos(inclo_1)*Math.cos(inclo_2) + Math.sin(inclo_1)*Math.sin(inclo_2)*Math.cos(nodeo_1 - nodeo_2));
 
 
-		    if (relInc <= minRelInc){
+		    //Only update the minRelInc variable if the debris object being analyzed in not in the visibleStations
+		    //list (assumed to be deorbited)
+		    if ((relInc <= minRelInc) && !(visibleStations.includes(s.satrec.satnum))){
 			//Update minRelInc and minDebris if needed
 			minRelInc = relInc; 
 
