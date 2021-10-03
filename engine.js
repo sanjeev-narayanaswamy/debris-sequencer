@@ -79,6 +79,7 @@ export class Engine {
                 station = this._findStationFromMesh(picked);
 	        // console.log(station.satrec.ecco);
             	var nearestDebrisStation = this._getNearestDebris(station);
+                this._isolateClickedAndNearestDebris(station,nearestDebrisStation);
             }
         }
 
@@ -171,6 +172,10 @@ export class Engine {
 
     clearStationHighlight = (station) => {
         station.mesh.material = this.material;
+        this.location.reload();
+        // station.mesh.material.visible = true;
+	// this.render();
+	    // this._makeVisible();
     }
 
     _addTleFileStations = (lteFileContent, color, stationOptions) => {
@@ -355,6 +360,33 @@ export class Engine {
         this.scene.add(this.earth);
 
     }
+
+	_isolateClickedAndNearestDebris = (clickedStation,nearestDebris) => {
+            for (var i = 0; i < this.stations.length; ++i) {
+	    
+            const s = this.stations[i];
+
+            if ((s.satrec.satnum !== clickedStation.satrec.satnum) && (s.satrec.satnum !== nearestDebris.satrec.satnum)){
+
+		s.mesh.visible = false;
+		// s.mesh.material.color = {r:0, g:1,b:0,isColor:true}
+		    
+	}
+	    }
+		this.render();
+	}
+
+	// _makeVisible = () => {
+        //     for (var i = 0; i < this.stations.length; ++i) {
+	//     
+        //     const s = this.stations[i];
+        //
+	// 	s.mesh.visible = true;
+	// 	// s.mesh.material.color = {r:0, g:1,b:0,isColor:true}
+	// 	    
+	//     }
+	// 	this.render();
+	// };
 
     _getNearestDebris = (clickedStation) => {
 

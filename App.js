@@ -150,6 +150,7 @@ class App extends Component {
     }
 
     handleRemoveAllSelected = () => {
+	window.location.reload(true);
         this.state.selected.forEach(s => this.engine.removeOrbit(s));
         this.setState({selected: []});
     }
