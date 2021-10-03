@@ -172,7 +172,7 @@ export class Engine {
 
     clearStationHighlight = (station) => {
         station.mesh.material = this.material;
-        this.location.reload();
+        // this.location.reload();
         // station.mesh.material.visible = true;
 	// this.render();
 	    // this._makeVisible();
