@@ -8,7 +8,7 @@ class Info extends Component {
 
         return (
             <div className='Info'>
-                <h1>Debris Tracker</h1>
+                <h1>Debris Sequencer</h1>
             </div>
         )
     }
