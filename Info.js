@@ -9,7 +9,6 @@ class Info extends Component {
         return (
             <div className='Info'>
                 <h1>Debris tracker</h1>
-                {stations && stations.length > 0 && (<p>Debris objects being tracked: {stations.length}</p>)}
             </div>
         )
     }
