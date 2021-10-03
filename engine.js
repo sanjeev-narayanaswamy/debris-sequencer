@@ -77,6 +77,8 @@ export class Engine {
             const picked = intersects[0].object;
             if (picked) {
                 station = this._findStationFromMesh(picked);
+	        // console.log(station.satrec.ecco);
+            	var nearestDebrisStation = this._getNearestDebris(station);
             }
         }
 
@@ -354,12 +356,39 @@ export class Engine {
 
     }
 
+    _getNearestDebris = (clickedStation) => {
+
+	    //Get Orbital Elements of Clicked Debris Object
+	    const a_1 = clickedStation.satrec.a;
+	    const ecco_1 = clickedStation.satrec.ecco;
+	    const inclo_1 = clickedStation.satrec.inclo;
+	    const argpo_1 = clickedStation.satrec.argpo;
+	    const nodeo_1 = clickedStation.satrec.nodeo;
+
+	for (var i = 0; i < this.stations.length; ++i) {
+	    
+            const s = this.stations[i];
+
+            if (s.satrec.satnum !== clickedStation.satrec.satnum){
+	    //Get Orbital Elements of Iterated Debris Object
+	    const a_2 = s.satrec.a;
+	    const ecco_2 = s.satrec.ecco;
+	    const inclo_2 = s.satrec.inclo;
+	    const argpo_2 = s.satrec.argpo;
+	    const nodeo_2 = s.satrec.nodeo;
+             }
+
+	return s;
+	}
+    }
+
     _findStationFromMesh = (threeObject) => {
         for (var i = 0; i < this.stations.length; ++i) {
             const s = this.stations[i];
-
             if (s.mesh === threeObject) return s;
         }
+	
+	// console.log(Math.sqrt(64.0));
 
         return null;
     }
