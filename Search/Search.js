@@ -17,8 +17,8 @@ class Search extends Component {
 
         return (
             <div className='Search'>
-                <SearchBox value={this.state.searchText} onChange={this.handleSearchChanged} />
-                <SearchResults stations={stations} searchText={this.state.searchText} onResultClick={onResultClick} />
+                {/* // <SearchBox value={this.state.searchText} onChange={this.handleSearchChanged} /> */}
+                {/* // <SearchResults stations={stations} searchText={this.state.searchText} onResultClick={onResultClick} /> */}
             </div>
         )
     }
