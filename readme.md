@@ -5,7 +5,7 @@ by David Suárez: https://github.com/dsuarezv/satellite-tracker
 
 Team Mün Members:
 
-Sanjeev Narayanaswamy
-Benjamin Wu
-Karthik Venkataramani
-Philippe Ludivig
+- Sanjeev Narayanaswamy
+- Benjamin Wu
+- Karthik Venkataramani
+- Philippe Ludivig
